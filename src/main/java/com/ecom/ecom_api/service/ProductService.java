@@ -17,7 +17,7 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Product getProductId(Long id) {
+    public Product getProductById(Long id) {
         return productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
     }
@@ -31,7 +31,7 @@ public class ProductService {
     }
 
     public Product updateProduct(Long id, Product updatedProduct) {
-        Product existing =  getProductId(updatedProduct.getId());
+        Product existing =  getProductById(updatedProduct.getId());
         existing.setName(updatedProduct.getName());
         existing.setDescription(updatedProduct.getDescription());
         existing.setPrice(updatedProduct.getPrice());
@@ -40,12 +40,12 @@ public class ProductService {
     }
 
     public void deleteProduct(Long id) {
-        getProductId(id); // Ensure product exists before deleting
+        getProductById(id); // Ensure product exists before deleting
         productRepository.deleteById(id);
     }
 
     public Product reduceStock(Long productId, int quantity) {
-        Product product = getProductId(productId);
+        Product product = getProductById(productId);
         if (product.getStock() < quantity) {
             throw new RuntimeException("Insufficient stock for product id: " + productId);
         }
