@@ -6,7 +6,8 @@ import java.util.List;
 
 @Data
 public class CreateOrderRequest {
-    private Long id;
+
+    private Long userId;
     private List<OrderItemRequest> items;
 
     @Data
